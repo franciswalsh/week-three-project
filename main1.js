@@ -17,13 +17,20 @@ for (let i = 0; i < buttonPress.length; i++){
     calculationArray.push(buttonIndex.value);
     inputString = inputString.concat(buttonIndex.value);
 
-    if (buttonIndex.value === "sqrt("){
+    if (buttonIndex.value === ")"){
 
-        console.log(inputString);
+        inputString = Math.sqrt(inputString.substring(inputString.length-3,inputString.length-1));
     }
 
     if (buttonIndex.value === "="){
-      // let operationResult = inputString.substring(0,inputString.length-1)
+
+      // for (let k in calculationArray){
+      //   if (calculationArray[k] === "sqrt("){
+      //     let tempString = Math.sqrt(inputString.substring(inputString.length-3,inputString.length-1));
+      //     inputString = inputString.concat(tempString);
+      //   }
+      // }
+
       inputString = eval(inputString.substring(0,inputString.length-1));
       if (buttonIndex.value === "C"){
         inputString = "";
