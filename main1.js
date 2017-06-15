@@ -4,7 +4,7 @@ let sqrtCalcString = "";
 let calculationArray = [];
 let inputSqrtString = "";
 let calculationResult = "";
-let storeAnwers = "";
+let sqrtString = "";
 
 let inputArrayBox = document.getElementById("userInput");
 
@@ -18,71 +18,58 @@ for (let i = 0; i < buttonPress.length; i++){
 
   function displayButton(event){
 
-    if (buttonIndex.value != "ans"){
+    function clearAllButton (){
+        inputString = "";
+        calculationArray = [];
+        calculationString = "";
+        inputSqrtString = "";
+    }
 
     calculationArray.push(buttonIndex.value);
     inputString = inputString.concat(buttonIndex.value);
     calculationString = calculationString.concat(buttonIndex.value);
     inputSqrtString = inputSqrtString.concat(buttonIndex.value);
-  }
-    // if (buttonIndex.value === ")"){
-    //
-    //     inputString = Math.sqrt(inputString.substring(inputString.length-3,inputString.length-1));
-    // }
+
     for (let x = 0; x < calculationArray.length; x++){
       if (calculationArray[x] === "sqrt()"){
         sqrtCalcString = inputSqrtString.substring(6);
-        let sqrtString = "sqrt(" + sqrtCalcString + ")"
-        calculationString = sqrtString;
-        inputString = calculationString;
+        sqrtString = "sqrt(" + sqrtCalcString + ")";
+        console.log("this is sqrtString: " + sqrtString);
+        inputString = sqrtString;
       }
-      // else {
-      //   console.log("there is no square root");
-      // }
     }
-
     if (buttonIndex.value === "="){
 
       if (calculationArray[0] === "sqrt()"){
-        inputString = Math.sqrt(sqrtCalcString.substring(0,sqrtCalcString.length-1));
+        calculationString = Math.sqrt(sqrtCalcString.substring(0,sqrtCalcString.length-1));
         calculationArray = [];
-        // caclulationString = inputString;
-        inputSqrtString = inputString;
-        // inputString = inputSqrtString;
-      }
-      else {
-      inputString = eval(calculationString.substring(0,calculationString.length-1));
-      inputSqrtString = inputString;
+        inputString = calculationString;
         if (buttonIndex.value === "C"){
-          inputString = "";
+          clearAllButton();
         }
       }
+      else if (calculationArray[calculationArray.length-2] === "^2") {
+        let squaringString = calculationString.substring(0,calculationString.length-3);
+        calculationString = squaringString * squaringString;
+
+        if (buttonIndex.value === "C"){
+          clearAllButton();
+        }
+      }
+      else {
+      calculationString = eval(calculationString.substring(0,calculationString.length-1));
+      inputSqrtString = inputString;
+        if (buttonIndex.value === "C"){
+          clearAllButton();
+        }
+      }
+      inputString = calculationString;
     }
     else if (buttonIndex.value === "C"){
-      inputString = "";
-      calculationArray = [];
-      calculationString = "";
-      inputSqrtString = "";
+      clearAllButton();
     }
-
-// -----------------------------------------------------------------------------
-    // else if (buttonIndex.value === "ans"){
-    //   storeAnwers = inputString;
-    //   calculationArray = [];
-    //   calculationString = "";
-    //   // inputString = "";
-    //   console.log(storeAnwers);
-    // }
-// ---------------------------------------------------------------------------
+    calculationString = calculationString.toString();
     inputString = inputString.toString();
-    inputSqrtString = inputSqrtString.toString();
-    calculationString = inputString;
-    // console.log("inputString: " + inputString);
-    // console.log("inputSqrtString: " + inputSqrtString);
-    // console.log("calculationArray: " + calculationArray);
-    // console.log("calculationString: " + calculationString);
     inputArrayBox.innerHTML = inputString;
-
-
   }
 }
